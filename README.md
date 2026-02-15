@@ -4,7 +4,7 @@ My works/projects from the ML course
 ## Технологический стек моих проектов
 *   **Языки:** Python (Pandas, NumPy, Matplotlib, Seaborn)
 *   **Machine Learning:** Scikit-learn, Gradient Boosting (XGBoost/CatBoost/LGBM)
-*   **Deep Learning:** Torch, TensorFlow, Keras 
+*   **Deep Learning:** PyTorch, TensorFlow, Keras 
 *   **NLP & CV:** BERT, Hugging Face, Fine-tuning
 *   **Оптимизация моделей:** Distillation, Quantization
 
