@@ -60,4 +60,6 @@ My works/projects from the ML course
 2. **Запустить контейнер:**
    ```bash
    docker run --rm -p 8888:8888 --gpus all sitnikne/predictive_maintenance_project:v1
-3. Используйте ссылку для подключения к виртуальной среде в Colab: http://localhost:8888
+3. Используйте ссылку для подключения к виртуальной среде в Colab:
+   ```bash
+   http://localhost:8888/
