@@ -1,3 +1,5 @@
+import os
+import urllib.request
 import scipy.io # type: ignore # type: ignore
 import numpy as np # type: ignore
 import streamlit as st # type: ignore
