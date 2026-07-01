@@ -14,26 +14,32 @@ import plotly.figure_factory as ff # type: ignore
 st.set_page_config(layout="wide")
 
 
-def load_svhn(data_dir):
+@st.cache_data # Чтобы не качать каждый раз при обновлении страницы
+def download_and_load_svhn():
+    urls = {
+        "train": "http://ufldl.stanford.edu/housenumbers/train_32x32.mat",
+        "test": "http://ufldl.stanford.edu/housenumbers/test_32x32.mat"
+    }
+    
+    results = {}
+    for name, url in urls.items():
+        filename = f"{name}_32x32.mat"
+        # Скачиваем файл в виртуальную среду браузера
+        if not os.path.exists(filename):
+            with st.spinner(f"Скачиваю {filename}..."):
+                urllib.request.urlretrieve(url, filename)
+        
+        # Загружаем
+        data = scipy.io.loadmat(filename)
+        X = data['X']
+        y = data['y'].flatten()
+        y[y == 10] = 0
+        X = X.transpose((3, 0, 1, 2))
+        results[name] = (X, y)
+        
+    return results["train"][0], results["train"][1], results["test"][0], results["test"][1]
 
-    train_data = scipy.io.loadmat(f'{data_dir}/train_32x32.mat')
-    train_X = train_data['X']
-    train_y = train_data['y'].flatten()
-
-    test_data = scipy.io.loadmat(f'{data_dir}/test_32x32.mat')
-    test_X = test_data['X']
-    test_y = test_data['y'].flatten()
-
-    train_y[train_y == 10] = 0
-    test_y[test_y == 10] = 0
-
-    train_X = train_X.transpose((3, 0, 1, 2))
-    test_X = test_X.transpose((3, 0, 1, 2))
-
-    return train_X, train_y, test_X, test_y
-
-data_dir = "C:/Users/PC/Desktop/финальный проект"
-train_X, train_y, test_X, test_y = load_svhn(data_dir)
+train_X, train_y, test_X, test_y = download_and_load_svhn()
 
 st.markdown("<h1 style='text-align: center;'>Исследовательский анализ данных датасета SVHN</h1>", unsafe_allow_html=True)
 st.write('')
