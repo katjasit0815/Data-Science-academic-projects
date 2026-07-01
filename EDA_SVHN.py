@@ -1,22 +1,22 @@
 import os
 import urllib.request
-import scipy.io # type: ignore # type: ignore
-import numpy as np # type: ignore
-import streamlit as st # type: ignore
-import matplotlib.pyplot as plt # type: ignore
-import pandas as pd # type: ignore
-import altair as alt # type: ignore
-import matplotlib.pyplot as plt # type: ignore
-from sklearn.neighbors import KNeighborsClassifier  # type: ignore
-from sklearn.model_selection import train_test_split, KFold, cross_val_score # type: ignore
-from sklearn.metrics import accuracy_score # type: ignore
-from sklearn.metrics import confusion_matrix # type: ignore
-import seaborn as sns # type: ignore
-import plotly.figure_factory as ff # type: ignore
+import scipy.io 
+import numpy as np 
+import streamlit as st 
+import matplotlib.pyplot as plt 
+import pandas as pd 
+import altair as alt 
+import matplotlib.pyplot as plt 
+from sklearn.neighbors import KNeighborsClassifier 
+from sklearn.model_selection import train_test_split, KFold, cross_val_score 
+from sklearn.metrics import accuracy_score 
+from sklearn.metrics import confusion_matrix 
+import seaborn as sns 
+import plotly.figure_factory as ff 
 st.set_page_config(layout="wide")
 
 
-@st.cache_data # Чтобы не качать каждый раз при обновлении страницы
+@st.cache_data 
 def download_and_load_svhn():
     urls = {
         "train": "http://ufldl.stanford.edu/housenumbers/train_32x32.mat",
@@ -26,12 +26,11 @@ def download_and_load_svhn():
     results = {}
     for name, url in urls.items():
         filename = f"{name}_32x32.mat"
-        # Скачиваем файл в виртуальную среду браузера
+        
         if not os.path.exists(filename):
             with st.spinner(f"Скачиваю {filename}..."):
                 urllib.request.urlretrieve(url, filename)
         
-        # Загружаем
         data = scipy.io.loadmat(filename)
         X = data['X']
         y = data['y'].flatten()
